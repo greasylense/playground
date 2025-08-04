@@ -1,18 +1,78 @@
-<!-- index.html -->
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Playground</title>
-    <style>
-      body {
-        font-family: sans-serif;
-        text-align: center;
-        margin-top: 100px;
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>How Common Is Your Name?</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      background: #f0f2f5;
+      padding: 50px;
+    }
+    input {
+      font-size: 1.2rem;
+      padding: 10px;
+      width: 300px;
+    }
+    button {
+      font-size: 1.2rem;
+      padding: 10px 20px;
+      margin-left: 10px;
+    }
+    #result {
+      margin-top: 40px;
+      font-size: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>How Common Is Your Name?</h1>
+  <p>Type your first name and find out!</p>
+
+  <input id="nameInput" placeholder="Enter your first name..." />
+  <button onclick="checkName()">Check</button>
+
+  <div id="result"></div>
+
+  <script>
+    // Mock name frequency data (normally this would be a huge file)
+    const nameData = [
+      { name: "James", rank: 1, count: 512345 },
+      { name: "Mary", rank: 2, count: 498123 },
+      { name: "John", rank: 3, count: 476000 },
+      { name: "Patricia", rank: 4, count: 450000 },
+      { name: "Robert", rank: 5, count: 429000 },
+      { name: "Henry", rank: 83, count: 138000 },
+      { name: "Olivia", rank: 6, count: 417000 },
+      { name: "Liam", rank: 7, count: 405000 },
+      { name: "Emma", rank: 8, count: 399000 },
+      { name: "Noah", rank: 9, count: 390000 },
+      { name: "Ava", rank: 10, count: 387000 }
+    ];
+
+    function checkName() {
+      const input = document.getElementById('nameInput').value.trim();
+      const resultBox = document.getElementById('result');
+      if (!input) {
+        resultBox.innerHTML = "Please enter a name.";
+        return;
       }
-    </style>
-  </head>
-  <body>
-    <h1>Welcome to your interactive site!</h1>
-    <p>This is live from GitHub Pages 🛰️</p>
-  </body>
+
+      const match = nameData.find(n => n.name.toLowerCase() === input.toLowerCase());
+
+      if (match) {
+        resultBox.innerHTML = `
+          <strong>${match.name}</strong> is the <strong>#${match.rank}</strong> most common name<br>
+          with about <strong>${match.count.toLocaleString()}</strong> people sharing it.
+        `;
+      } else {
+        resultBox.innerHTML = `
+          Hmm... we couldn't find <strong>${input}</strong> in our top list.<br>
+          It might be rare or spelled unusually.
+        `;
+      }
+    }
+  </script>
+</body>
 </html>
